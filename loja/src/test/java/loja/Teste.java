@@ -138,7 +138,7 @@ public class Teste {
 		for (ConstraintViolation<Produto> pd: constraintViolations) {
 			System.out.println(" Erro de Validacao Produto valido : "+pd.getMessage());
 		}
-		Assert.assertEquals(3, constraintViolations.size() );
+		Assert.assertEquals(2, constraintViolations.size() );
 	}
 
 }
