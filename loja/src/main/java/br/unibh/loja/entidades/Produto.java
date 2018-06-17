@@ -41,22 +41,26 @@ public class Produto {
 	@Size(min=3, max=100)
 	@Pattern(regexp="[A-zÀ-ú.´ ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
 	@Column(length=100, nullable=false)
+	
 	private String nome;
 	
 	@NotBlank
 	@Pattern(regexp="[A-zÀ-ú ´\\-\\/]")
 	@Size(max=4000)
 	@Column(length=4000, nullable=false)
+	
 	private String descricao;
 	
 	@NotNull
 	@ManyToOne(optional=false)
 	@JoinColumn(name="id_categoria", referencedColumnName="id")
+	
 	private Categoria categoria;
 	
 	@NotNull
 	@Min(0)
 	@Column(length=16, nullable=false)
+	
 	private BigDecimal preco;
 	
 	@NotBlank

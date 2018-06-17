@@ -27,11 +27,13 @@ public class Client {
 	@NotBlank
 	@Size(min=3, max=100)
 	@Pattern(regexp="[A-zÀ-ú.´ ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
+	
 	@Column(length=100, nullable=false)
 	private String nome;
 	
 	@NotBlank
 	@Pattern(regexp="[A-z0-9]*", message="Caracteres permitidos: letras e números")
+	
 	@Size(min=8, max=15)
 	@Column(length=15, nullable=false)
 	private String login;
@@ -52,6 +54,7 @@ public class Client {
 	private String cpf;
 	
 	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}", message="Fornecer um telefone no formato (99)09999-9999")
+	
 	@Size(max=100)
 	@Column(length=14, nullable=true)
 	private String telefone;
