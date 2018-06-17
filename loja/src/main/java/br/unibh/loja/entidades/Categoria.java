@@ -1,17 +1,65 @@
 package br.unibh.loja.entidades;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+@Entity
+@Table(name="tb_categoria", uniqueConstraints = {
+	    @UniqueConstraint(columnNames = { "descricao"})
+	})
+@NamedQueries({
+	@NamedQuery(name="Categoria.findByName", query = "select o from Categoria o where o.descricao like :name")
+})
 public class Categoria {
+	
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank
+	@Pattern(regexp="[A-zÀ-ú ´\\-\\/]*", message="Caracteres permitidos: letras, espaços, acentos, ponto, barra e aspas simples")
+	@Size(max=100)
+	@Column(length=100, nullable=false)
 	private String descricao;
-	public Categoria() {
-		super();
-		// TODO Auto-generated constructor stub
+	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 	public Categoria(Long id, String descricao) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 	}
+
+	
+	@Override
+	public String toString() {
+		return "Categoria [id=" + id + ", descricao=" + descricao + "]";
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -20,6 +68,12 @@ public class Categoria {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+	
+	public Categoria() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -41,16 +95,14 @@ public class Categoria {
 			return false;
 		return true;
 	}
-	public Long getId() {
-		return id;
+	
+	@Version
+	private Long version;
+	public Long getVersion() {
+		return version;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setVersion(Long version) {
+		this.version = version;
 	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+
 }
