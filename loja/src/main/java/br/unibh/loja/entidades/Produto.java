@@ -31,44 +31,6 @@ import org.hibernate.validator.constraints.NotBlank;
 	@NamedQuery(name="Produto.findByName", query = "select o from Produto o where o.nome like :nome")
 })
 public class Produto {
-	
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
-	@NotBlank
-	@Size(min=3, max=100)
-	@Pattern(regexp="[A-zÀ-ú.´ ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
-	@Column(length=100, nullable=false)
-	
-	private String nome;
-	
-	@NotBlank
-	@Pattern(regexp="[A-zÀ-ú ´\\-\\/]")
-	@Size(max=4000)
-	@Column(length=4000, nullable=false)
-	
-	private String descricao;
-	
-	@NotNull
-	@ManyToOne(optional=false)
-	@JoinColumn(name="id_categoria", referencedColumnName="id")
-	
-	private Categoria categoria;
-	
-	@NotNull
-	@Min(0)
-	@Column(length=16, nullable=false)
-	
-	private BigDecimal preco;
-	
-	@NotBlank
-	@Pattern(regexp="[A-zÀ-ú.´ ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
-	@Size(max=100)
-	@Column(nullable=false)
-	
-	private String fabricante;
 	public Produto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -121,7 +83,37 @@ public class Produto {
 		this.fabricante = fabricante;
 	}
 	
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	
+	@NotBlank
+	@Size(min=3, max=100)
+	@Pattern(regexp="[A-zÀ-ú.´ ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
+	@Column(length=100, nullable=false)
+	private String nome;
+	
+	@NotBlank
+	@Pattern(regexp="[A-zÀ-ú ´\\-\\/]*")
+	@Size(max=4000)
+	@Column(length=4000, nullable=false)
+	private String descricao;
+	
+	@NotNull
+	@ManyToOne(optional=false)
+	@JoinColumn(name="id_categoria", referencedColumnName="id")
+	private Categoria categoria;
+	
+	@NotNull
+	@Min(0)
+	@Column(length=16, nullable=false)
+	private BigDecimal preco;
+	
+	@NotBlank
+	@Pattern(regexp="[A-zÀ-ú.´ ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
+	@Size(max=100)
+	@Column(nullable=false)
+	private String fabricante;
 	
 	@Override
 	public String toString() {

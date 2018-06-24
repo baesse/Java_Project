@@ -10,55 +10,47 @@ import br.unibh.loja.entidades.Client;
 
 @Stateless
 @LocalBean
+public class ServicoCliente {
 
-public class ServicoCliente implements DAO<Client, Long> {
 	@Inject
 	EntityManager em;
+	
 	@Inject
 	private Logger log;
-
-	@Override
-	public Client insert(Client t) throws Exception {
-		
-		
-		log.info("Persistindo " + t);
-		em.persist(t);
-		return t;
-
+	
+	public Client insert(Client c) throws Exception {
+		log.info("Persistindo "+c);
+		em.persist(c);
+		return c;
 	}
-
-	@Override
-	public Client update(Client t) throws Exception {
-		log.info("Atualizando " + t);
-		return em.merge(t);
-
+	
+	public Client update(Client c) throws Exception {
+		log.info("Atualizando "+c);
+		return em.merge(c);
 	}
-
-	@Override
-	public void delete(Client t) throws Exception {
-		log.info("Removendo " + t);
-		Object c = em.merge(t);
-		em.remove(c);
-
+	
+	public void delete(Client c) throws Exception {
+		log.info("Removendo "+c);
+		Object o = em.merge(c);
+		em.remove(o);
 	}
-
-	@Override
+	
 	public Client find(Long k) throws Exception {
-		log.info("Encontrando pela chave " + k);
+		log.info("Encontrando pela chave "+k);
 		return em.find(Client.class, k);
 	}
-
-	@Override
+	
+	@SuppressWarnings("unchecked")
 	public List<Client> findAll() throws Exception {
 		log.info("Encontrando todos os objetos");
 		return em.createQuery("from Client").getResultList();
 	}
-
-	@Override
+	
 	@SuppressWarnings("unchecked")
 	public List<Client> findByName(String name) throws Exception {
-		log.info("Encontrando o " + name);
-		return em.createNamedQuery("Client.findByName").setParameter("nome", "%" + name + "%").getResultList();
+		log.info("Encontrando o "+name);
+		return em.createNamedQuery("Client.findByName")
+		.setParameter("nome", "%"+name+"%").getResultList();
 	}
 
 }

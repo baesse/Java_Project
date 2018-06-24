@@ -19,25 +19,10 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name="tb_categoria", uniqueConstraints = {
 	    @UniqueConstraint(columnNames = { "descricao"})
 	})
-
 @NamedQueries({
-	@NamedQuery(name="Categoria.findByName", query = "select o from Categoria o where o.descricao like :name")
+	@NamedQuery(name="Categoria.findByName", query = "select o from Categoria o where o.descricao like :descricao")
 })
 public class Categoria {
-	
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
-	@NotBlank
-	@Pattern(regexp="[A-zÀ-ú ´\\-\\/]*", message="Caracteres permitidos: letras, espaços, acentos, ponto, barra e aspas simples")
-	@Size(max=100)
-	@Column(length=100, nullable=false)
-	
-	private String descricao;
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -55,7 +40,15 @@ public class Categoria {
 		this.id = id;
 		this.descricao = descricao;
 	}
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	
+	@NotBlank
+	@Pattern(regexp="[A-zÀ-ú ´\\-\\/]*", message="Caracteres permitidos: letras, espaços, acentos, ponto, barra e aspas simples")
+	@Size(max=100)
+	@Column(length=100, nullable=false)
+	private String descricao;
 	
 	@Override
 	public String toString() {

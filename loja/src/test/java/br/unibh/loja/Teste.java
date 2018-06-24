@@ -1,5 +1,4 @@
-package loja;
-
+package br.unibh.loja;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;

@@ -10,53 +10,47 @@ import br.unibh.loja.entidades.Produto;
 
 @Stateless
 @LocalBean
+public class ServicoProduto {
 
-public class ServicoProduto implements DAO<Produto, Long> {
 	@Inject
 	EntityManager em;
+	
 	@Inject
 	private Logger log;
-
-	@Override
-	public Produto insert(Produto t) throws Exception {
-		log.info("Persistindo " + t);
-		em.persist(t);
-		return t;
-
+	
+	public Produto insert(Produto p) throws Exception {
+		log.info("Persistindo "+p);
+		em.persist(p);
+		return p;
 	}
-
-	@Override
-	public Produto update(Produto t) throws Exception {
-		log.info("Atualizando " + t);
-		return em.merge(t);
-
+	
+	public Produto update(Produto p) throws Exception {
+		log.info("Atualizando "+p);
+		return em.merge(p);
 	}
-
-	@Override
-	public void delete(Produto t) throws Exception {
-		log.info("Removendo " + t);
-		Object c = em.merge(t);
+	
+	public void delete(Produto p) throws Exception {
+		log.info("Removendo "+p);
+		Object c = em.merge(p);
 		em.remove(c);
-
 	}
-
-	@Override
+	
 	public Produto find(Long k) throws Exception {
-		log.info("Encontrando pela chave " + k);
+		log.info("Encontrando pela chave "+k);
 		return em.find(Produto.class, k);
 	}
-
-	@Override
+	
+	@SuppressWarnings("unchecked")
 	public List<Produto> findAll() throws Exception {
 		log.info("Encontrando todos os objetos");
 		return em.createQuery("from Produto").getResultList();
 	}
-
-	@Override
+	
 	@SuppressWarnings("unchecked")
 	public List<Produto> findByName(String name) throws Exception {
-		log.info("Encontrando o " + name);
-		return em.createNamedQuery("Produto.findByName").setParameter("nome", "%" + name + "%").getResultList();
+		log.info("Encontrando o "+name);
+		return em.createNamedQuery("Produto.findByName")
+		.setParameter("nome", "%"+name+"%").getResultList();
 	}
-
+	
 }
