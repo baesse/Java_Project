@@ -13,7 +13,7 @@ import br.unibh.loja.entidades.Produto;
 public class ServicoProduto {
 
 	@Inject
-	EntityManager em;
+	private EntityManager em;
 	
 	@Inject
 	private Logger log;

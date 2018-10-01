@@ -15,7 +15,7 @@ import br.unibh.loja.entidades.Categoria;
 public class ServicoCategoria {
 
 	@Inject
-	EntityManager em;
+	private EntityManager em;
 	
 	@Inject
 	private Logger log;
